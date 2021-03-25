@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% block body %}
+    
+{% endblock body %}
+
+
+{% block script %}
+
+
+/// cart
+if(localStorage.getItem('cart') == null)
+{
+    var cart = {};
+}
+else
+{
+    cart = JSON.parse(localStorage.getItem('cart'));
+}
+///// cartp
+if(localStorage.getItem('cartp') == null)
+{
+    var cartp = {};
+}
+else
+{
+    cartp = JSON.parse(localStorage.getItem('cartp'));
+}
+
+
+function fun1(v)
+{
+var a = v.id.split('_');
+var a1 = a[0];
+var b1 = a[1];
+var t1=a1.substring(2);
+console.log(t1);
+console.log(b1);
+        if(cart[t1] >0)
+        {
+            cart[t1] = cart[t1] - 1;
+            cartp[b1] = cartp[b1] - 1;
+        }
+///////////
+
+var x,y;
+for(x in cart)
+{
+    if(cart[x] == 0)
+    {
+        delete cart[x];
+    }
+
+}
+
+for(y in cartp)
+{
+    if(cartp[y] == 0)
+    {
+        delete cartp[y];
+    }
+
+}
+
+//////////
+console.log(cart);
+console.log(cartp);
+localStorage.setItem('cart',JSON.stringify(cart));
+localStorage.setItem('cartp',JSON.stringify(cartp));
+update(cart,cartp);
+cartitem(cart,cartp);
+}
+
+////---------
+var t,t1;
+for(t in cart)
+{
+    if(cart[t] == 0)
+    {
+        delete cart[t];
+    }
+}
+for(t1 in cartp)
+{
+    if(cartp[t1] == 0)
+    {
+        delete cartp[t1];
+    }
+}
+///////////---------
+function fun(v){
+var a = v.id.split('_');
+var a1 = a[0];
+var b1 = a[1];
+console.log(`item --- ${a1} and ${b1}`);
+    if(cart[a1] != undefined)
+    {
+        cart[a1] = cart[a1]+1;
+        cartp[b1]= cartp[b1]+1;
+    }
+    else
+    {
+        cart[a1]=1;
+        cartp[b1]=1;
+    }
+    console.log(cart);
+    console.log(cartp);
+    localStorage.setItem('cart',JSON.stringify(cart));
+    localStorage.setItem('cartp',JSON.stringify(cartp));
+    update(cart,cartp);
+    cartitem(cart,cartp);
+    // document.getElementById('ct').innerHTML = Object.keys(cart).length;
+    console.log(Object.keys(cart).length);
+}
+update(cart,cartp);
+cartitem(cart,cartp);
+
+function cartitem(cart,cartp)
+{
+    var x,i=1,j=1;
+    var txt="",pxp="";
+    document.getElementById('show_item').innerText = "";
+    if(document.getElementById('ct').innerHTML == '0')
+    {
+        document.getElementById('show_item').innerText = "";
+        document.getElementById('show_item').innerText = "Your cart is empty.";
+        document.getElementById('show_prices').innerText = "";
+
+    }
+    document.getElementById('show_prices').innerText = "";
+    for(x in cart)
+    {
+
+        txt = "\n"+i+". "+x+" - Qty - "+cart[x]+"\n";
+
+        document.getElementById('show_item').innerText += txt;
+        i+=1;
+    }
+    for(x in cartp)
+    {
+
+        pxp = "\n"+j+". "+x+" - Qty - "+cartp[x]+" - "+(x*cartp[x])+"\n";
+
+        document.getElementById('show_prices').innerText += pxp;
+        j+=1;
+    }
+
+}
+
+function update(cart,cartp)
+{
+    var x,sum=0;
+    for(x in cart)
+    {
+        sum=sum+cart[x];
+    }
+document.getElementById('ct').innerHTML = sum;
+
+    var total = 0;
+    for(x in cartp)
+    {
+        a = x * cartp[x];
+        total = total+a;
+    }
+document.getElementById('ta').innerText = total;
+}
+{% endblock script %}

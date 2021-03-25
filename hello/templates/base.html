@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>index page</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <title>{% block title %} {% endblock title %}</title>
+    <style type="text/css">
+      .kkk:hover{
+          color: red;
+      }
+    </style>
+</head>
+
+<body>
+	{% load static %}
+<nav class="navbar navbar-expand bg-dark navbar-dark fixed-top">
+  <ul class="navbar-nav">
+  	<li>
+  		<a href="/"><img src="{% static 'mixon-1.png' %}" class="rounded-circle"></a>
+  	</li>
+    <li class="nav-item ml-4">
+      <a class="nav-link" href="/allprod">View Products</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/tracker">Tracker</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/contact">Contact Us</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/about">About</a>
+    </li>
+    <li>
+    	<h4><button class="btn badge badge-danger badge-pill mt-3" id="ct" data-toggle="collapse" data-target="#cart">5</button></h4>
+    
+    </li>
+  </ul>
+</nav>
+<div class="float-sm-right border rounded p-2 m-0 collapse" id="cart" style="width: 300px;overflow:auto;position: fixed;right: 0;bottom: 0;">
+        <center><h5>Your cart</h5></center>
+        <br><span id="show_item"></span><br>
+           <center><button class="btn btn-primary mt-2" onclick="cl()">Clear Cart</button>
+            <a href="/checkout"><button class="btn btn-primary mt-2">checkout</button></a><br></center>  
+           <br> <span id="show_prices"></span><br>
+            <br>------------<br>Total Amount = <span id="ta"></span>
+</div>
+{% block body %} {% endblock body %}
+
+</body>
+
+
+
+<script type="text/javascript">
+
+function cl(){
+    localStorage.clear();
+    window.open('http://mixon.pythonanywhere.com/','_self');
+}
+
+/// cart items
+// if(localStorage.getItem('cart') == null)
+// {
+//     var cart = {};
+// }
+// else
+// {
+//     cart = JSON.parse(localStorage.getItem('cart'));
+// }
+// if(localStorage.getItem('cartp') == null)
+// {
+//     var cartp = {};
+// }
+// else
+// {
+//     cartp = JSON.parse(localStorage.getItem('cartp'));
+// }
+
+
+
+// function fun1(v)
+// {
+// var a = v.id.split('_');
+// var a1 = a[0];
+// var b1 = a[1];
+// var t1=a1.substring(2);
+// console.log(t1);
+// console.log(b1);
+//         if(cart[t1] >0)
+//         {
+//             cart[t1] = cart[t1] - 1;
+//             cartp[b1] = cartp[b1] - 1;
+//         }
+// console.log(cart);
+// console.log(cartp);
+// localStorage.setItem('cart',JSON.stringify(cart));
+// localStorage.setItem('cartp',JSON.stringify(cartp));
+// update(cart,cartp);
+// cartitem(cart,cartp);
+// }
+
+// function fun(v){
+// var a = v.id.split('_');
+// var a1 = a[0];
+// var b1 = a[1];
+// console.log(`item --- ${a1} and ${b1}`);
+//     if(cart[a1] != undefined)
+//     {
+//         cart[a1] = cart[a1]+1;
+//         cartp[b1]= cartp[b1]+1;
+//     }
+//     else
+//     {
+//         cart[a1]=1;
+//         cartp[b1]=1;
+//     }
+//     console.log(cart);
+//     console.log(cartp);
+//     localStorage.setItem('cart',JSON.stringify(cart));
+//     localStorage.setItem('cartp',JSON.stringify(cartp));
+//     update(cart,cartp);
+//     cartitem(cart,cartp);
+//     // document.getElementById('ct').innerHTML = Object.keys(cart).length;
+//     console.log(Object.keys(cart).length);
+// }
+// update(cart,cartp);
+// cartitem(cart,cartp);
+
+// function cartitem(cart,cartp)
+// {
+//     var x,i=1,j=1;
+//     var txt="",pxp="";
+//     document.getElementById('show_item').innerText = "";
+//     document.getElementById('show_i').innerText = "";
+//     if(document.getElementById('ct').innerHTML == '0')
+//     {
+//         document.getElementById('show_item').innerText = "";
+//         document.getElementById('show_i').innerText = "";
+//         document.getElementById('show_item').innerText = "Your cart is empty.";
+//         document.getElementById('show_i').innerText = "Your cart is empty.";
+//         document.getElementById('show_prices').innerText = "";
+//     }
+//     document.getElementById('show_prices').innerText = "";
+//     for(x in cart)
+//     {
+
+//         txt = "\n"+i+". "+x+" - Qty - "+cart[x]+"";
+
+//         document.getElementById('show_item').innerText += txt;
+//         document.getElementById('show_i').innerText += txt;
+//         i+=1;
+//     }
+//     for(x in cartp)
+//     {
+
+//         pxp = "\n"+j+". "+x+" - Qty - "+cartp[x]+" - "+x*cartp[x];
+
+//         document.getElementById('show_prices').innerText += pxp;
+        
+//         j+=1;
+//     }
+
+// }
+
+// function update(cart,cartp)
+// {
+//     var x,sum=0;
+//     for(x in cart)
+//     {
+//         sum=sum+cart[x];
+//     }
+// document.getElementById('ct').innerHTML = sum;
+
+//     var total = 0;
+//     for(x in cartp)
+//     {
+//         a = x * cartp[x];
+//         total = total+a;
+//     }
+// document.getElementById('ta').innerHTML = total;
+// document.getElementById('total_am').innerHTML = total;
+// }
+
+{% block script %}  {% endblock script %}
+</script>
+
+
+</html>

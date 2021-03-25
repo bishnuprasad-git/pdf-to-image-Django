@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+
+
+{% block title %} checkout {% endblock %}
+
+{% block body %}
+
+<div class="container m-lg-5">
+     <div class="mt-5">OMMMMMMMMMM</div>
+<h4 class="text-lg-center mt-3">Your Order</h4>
+<div class="form-group">
+    <p id="show_item" style="width: 800px;" class="m-auto"></p>
+</div>
+
+<h5 class="text-center">Total Amount = Rs. <span id="total_am"></span></h5>
+<hr>
+<h2 class="text-center">Fill the details</h2>
+
+<form method="post" action="/checkout/" style="width: 500px;" class="m-auto">{% csrf_token %}
+    <div class="form-group">
+        <input type="number" class="form-control" name="order_id" id="order_id" hidden>
+    </div>
+    <div class="form-group">
+        <input type="number" class="form-control" name="tam" id="tam" hidden>
+    </div>
+    <div class="form-group">
+        <label>Enter Your Name:</label>
+        <input type="text" class="form-control" name="name" placeholder="name" autocomplete="off" required>
+    </div>
+    <div class="form-group">
+        <label>Enter Your email:</label>
+        <input type="email" class="form-control" name="email" placeholder="email" autocomplete="off" required>
+    </div>
+    <div class="form-group">
+        <label>Enter Your Contact Number:</label>
+        <input type="tel" class="form-control" name="phone" placeholder="phone" autocomplete="off" required>
+    </div>
+    <div class="form-group">
+        <label>Select city:</label>
+        <input type="text" class="form-control" name="city" placeholder="city" autocomplete="off" required>
+    </div>
+    <div class="form-group">
+        <label>address:</label>
+        <input type="text" class="form-control" name="address" placeholder="address" autocomplete="off" required>
+    </div>
+	<input type="submit" class="form-control btn-outline-dark" name="submit" value="submit" onclick="ok()">
+</form>
+
+{% endblock body %}
+</div>
+
+
+{% block script %}
+
+function ok(){
+    g = Math.ceil(Math.random()*10000);
+    alert('Please note your Order_id '+g+' .\nYou can track your order now from Tracker option.');
+    document.getElementById('order_id').value = g;
+
+}
+/// cart
+if(localStorage.getItem('cart') == null)
+{
+    var cart = {};
+}
+else
+{
+    cart = JSON.parse(localStorage.getItem('cart'));
+}
+///// cartp
+if(localStorage.getItem('cartp') == null)
+{
+    var cartp = {};
+}
+else
+{
+    cartp = JSON.parse(localStorage.getItem('cartp'));
+}
+
+
+function fun1(v)
+{
+var a = v.id.split('_');
+var a1 = a[0];
+var b1 = a[1];
+var t1=a1.substring(2);
+console.log(t1);
+console.log(b1);
+        if(cart[t1] >0)
+        {
+            cart[t1] = cart[t1] - 1;
+            cartp[b1] = cartp[b1] - 1;
+        }
+
+///////////
+
+var x,y;
+for(x in cart)
+{
+    if(cart[x] == 0)
+    {
+        delete cart[x];
+    }
+
+}
+
+for(y in cartp)
+{
+    if(cartp[y] == 0)
+    {
+        delete cartp[y];
+    }
+
+}
+
+//////////
+console.log(cart);
+console.log(cartp);
+localStorage.setItem('cart',JSON.stringify(cart));
+localStorage.setItem('cartp',JSON.stringify(cartp));
+update(cart,cartp);
+cartitem(cart,cartp);
+}
+////---------
+var t,t1;
+for(t in cart)
+{
+    if(cart[t] == 0)
+    {
+        delete cart[t];
+    }
+}
+for(t1 in cartp)
+{
+    if(cartp[t1] == 0)
+    {
+        delete cartp[t1];
+    }
+}
+///////////---------
+
+
+function fun(v){
+var a = v.id.split('_');
+var a1 = a[0];
+var b1 = a[1];
+console.log(`item --- ${a1} and ${b1}`);
+    if(cart[a1] != undefined)
+    {
+        cart[a1] = cart[a1]+1;
+        cartp[b1]= cartp[b1]+1;
+    }
+    else
+    {
+        cart[a1]=1;
+        cartp[b1]=1;
+    }
+    console.log(cart);
+    console.log(cartp);
+    localStorage.setItem('cart',JSON.stringify(cart));
+    localStorage.setItem('cartp',JSON.stringify(cartp));
+    update(cart,cartp);
+    cartitem(cart,cartp);
+    // document.getElementById('ct').innerHTML = Object.keys(cart).length;
+    console.log(Object.keys(cart).length);
+}
+update(cart,cartp);
+cartitem(cart,cartp);
+
+function cartitem(cart,cartp)
+{
+    var x,i=1,j=1;
+    var txt="",pxp="";
+    document.getElementById('show_item').innerText = "";
+    if(document.getElementById('ct').innerHTML == '0')
+    {
+
+        document.getElementById('show_item').innerText = "";
+        document.getElementById('show_item').innerText = "Your cart is empty.";
+        document.getElementById('show_prices').innerText = "";
+        window.open('http://mixon.pythonanywhere.com/','_self');
+    }
+    document.getElementById('show_prices').innerText = "";
+    for(x in cart)
+    {
+
+        txt = "\n"+i+". "+x+" - Qty - "+cart[x]+"\n";
+
+        document.getElementById('show_item').innerText += txt;
+        i+=1;
+    }
+    for(x in cartp)
+    {
+
+        pxp = "\n"+j+". "+x+" - Qty - "+cartp[x]+" - "+(x*cartp[x])+"\n";
+
+        document.getElementById('show_prices').innerText += pxp;
+        j+=1;
+    }
+
+}
+
+function update(cart,cartp)
+{
+    var x,sum=0;
+    for(x in cart)
+    {
+        sum=sum+cart[x];
+    }
+document.getElementById('ct').innerHTML = sum;
+
+    var total = 0;
+    for(x in cartp)
+    {
+        a = x * cartp[x];
+        total = total+a;
+    }
+document.getElementById('total_am').innerHTML = total;
+document.getElementById('tam').value = total;
+}
+
+
+{% endblock script %}

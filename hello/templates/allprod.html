@@ -1,0 +1,312 @@
+
+{%   extends 'base.html' %}
+
+{% block title %} All prodcuts {% endblock %} 
+<style type="text/css">
+    h5{
+        
+    }
+</style>
+{% block body %}
+{% load static %}
+<div class="container mt-2 ml-0">
+    
+<!-- MOBILE section -->
+
+<div class="mt-5">OMMMMMMMMMM</div>
+<div class="text-center ml-0 mt-5">
+    <img src="{% static 'realme u1.jpg' %}" class="img-fluid" style="max-width: 100px; min-height: 100px;">
+    <button class="btn btn-dark" data-toggle="collapse" data-target="#mobiles" style="width: 60%">MOBILES</button>
+</div>
+
+<div class="collapse" id="mobiles">
+{% for i in d %}
+{% if i.category == "mobile" %}
+<div class="card-columns text-center" style="display: inline;">
+
+    <div class="card m-2 p-0" style="max-width:300px;min-width: 300px;max-height:300px;min-height: 100px;">
+        <div class="card-body">
+            <img src="/media/{{i.image}}" class="img-fluid" style="max-width: 100px; min-height: 100px;">
+            <h4 class="card-title">{{i.name}}</h4>                                                                 
+            <p class="card-text">Rs. {{i.price}}</p>
+            <button class="cart btn btn-danger" id="pr{{i.name}}_{{i.price}}" onclick="fun1(this)">-</button>
+            <button class="cart btn btn-primary" id="{{i.name}}_{{i.price}}" onclick="fun(this)">+</button>
+            <a href="/allprod/{{i.name}}"><button class="btn btn-dark">Quick View</button></a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+</div>
+
+
+<br><br>
+
+<!-- LAPTOP section -->
+
+<div class="text-center ml-0">
+    <img src="{% static 'hp1.jpg' %}" class="img-fluid" style="max-width: 100px; min-height: 100px;">
+    <button class="btn btn-dark" data-toggle="collapse" data-target="#laptops" style="width: 60%">LAPTOPS</button>
+</div>
+
+
+
+<div class="collapse mg-2 mt-5" id="laptops">
+{% for i in d %}
+{% if i.category == "laptop" %}
+<div class="card-columns text-center" style="display: inline;">
+
+    <div class="card m-2 p-0" style="max-width:300px;min-width: 300px;max-height:400px;min-height: 100px;">
+        <div class="card-body">
+            <img src="/media/{{i.image}}" class="img-fluid" style="max-width: 100px; min-height: 100px;">
+            <h4 class="card-title">{{i.name}}</h4>                                                                
+            <p class="card-text">Rs. {{i.price}}</p>
+            <button class="cart btn btn-danger" id="pr{{i.name}}_{{i.price}}" onclick="fun1(this)">-</button>
+            <button class="cart btn btn-primary" id="{{i.name}}_{{i.price}}" onclick="fun(this)">+</button>
+            <a href="/allprod/{{i.name}}"><button class="btn btn-dark">Quick View</button></a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endfor %}
+</div>
+
+<!-- SHIRTS -->
+
+<br><br>
+
+<div class="text-center ml-0">
+    <img src="{% static 'ts1.jpg' %}" class="img-fluid" style="max-width: 100px; min-height: 100px;">
+    <button class="btn btn-dark" data-toggle="collapse" data-target="#shirts" style="width: 60%">Men's Fashion</button>
+</div>
+
+
+
+<div class="collapse mg-2 mt-5" id="shirts">
+{% for i in d %}
+{% if i.category == "shirts" %}
+<div class="card-columns text-center" style="display: inline;">
+
+    <div class="card m-2 p-0" style="max-width:300px;min-width: 300px;max-height:400px;min-height: 100px;">
+        <div class="card-body">
+            <img src="/media/{{i.image}}" class="img-fluid" style="max-width: 100px; min-height: 100px;">
+            <h4 class="card-title">{{i.name}}</h4>                                                                
+            <p class="card-text">Rs. {{i.price}}</p>
+            <button class="cart btn btn-danger" id="pr{{i.name}}_{{i.price}}" onclick="fun1(this)">-</button>
+            <button class="cart btn btn-primary" id="{{i.name}}_{{i.price}}" onclick="fun(this)">+</button>
+            <a href="/allprod/{{i.name}}"><button class="btn btn-dark">Quick View</button></a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endfor %}
+</div>
+<!-- WOMEN sections -->
+
+<br><br>
+
+<div class="text-center ml-0">
+    <img src="{% static 'wm1.jpg' %}" class="img-fluid" style="max-width: 100px; min-height: 100px;">
+    <button class="btn btn-dark" data-toggle="collapse" data-target="#wms" style="width: 60%">Women's Fashion</button>
+</div>
+
+
+
+<div class="collapse mg-2 mt-5" id="wms">
+{% for i in d %}
+{% if i.category == "wms" %}
+<div class="card-columns text-center" style="display: inline;">
+
+    <div class="card m-2 p-0" style="max-width:300px;min-width: 300px;max-height:400px;min-height: 100px;">
+        <div class="card-body">
+            <img src="/media/{{i.image}}" class="img-fluid" style="max-width: 100px; min-height: 100px;">
+            <h4 class="card-title">{{i.name}}</h4>                                                                
+            <p class="card-text">Rs. {{i.price}}</p>
+            <button class="cart btn btn-danger" id="pr{{i.name}}_{{i.price}}" onclick="fun1(this)">-</button>
+            <button class="cart btn btn-primary" id="{{i.name}}_{{i.price}}" onclick="fun(this)">+</button>
+            <a href="/allprod/{{i.name}}"><button class="btn btn-dark">Quick View</button></a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endfor %}
+
+<!-- <h1><button class="btn badge badge-danger badge-pill mt-3 float-right" id="ct" data-toggle="collapse" data-target="#cart"></button></h1>
+    <div class="float-sm-right border-danger border rounded p-2 collapse" id="cart" style="width: 300px;">
+        <center><h5>Your cart</h5></center>
+        <span id="show_item"></span><br>
+            <center><a href="/checkout"><button class="btn btn-primary mt-2">checkout</button></a></center><br>
+            <span id="show_prices"></span>
+            <br>------------<br>Total Amount = <span id="ta"></span>
+    </div> -->
+
+
+
+{% endblock body  %}    
+
+{% block script %}
+
+
+/// cart
+if(localStorage.getItem('cart') == null)
+{
+    var cart = {};
+}
+else
+{
+    cart = JSON.parse(localStorage.getItem('cart'));
+}
+///// cartp
+if(localStorage.getItem('cartp') == null)
+{
+    var cartp = {};
+}
+else
+{
+    cartp = JSON.parse(localStorage.getItem('cartp'));
+}
+
+
+function fun1(v)
+{
+var a = v.id.split('_');
+var a1 = a[0];
+var b1 = a[1];
+var t1=a1.substring(2);
+console.log(t1);
+console.log(b1);
+        if(cart[t1] >0)
+        {
+            cart[t1] = cart[t1] - 1;
+            cartp[b1] = cartp[b1] - 1;
+        }
+
+///////////
+
+var x,y;
+for(x in cart)
+{
+    if(cart[x] == 0)
+    {
+        delete cart[x];
+    }
+
+}
+
+for(y in cartp)
+{
+    if(cartp[y] == 0)
+    {
+        delete cartp[y];
+    }
+
+}
+
+//////////
+console.log(cart);
+console.log(cartp);
+localStorage.setItem('cart',JSON.stringify(cart));
+localStorage.setItem('cartp',JSON.stringify(cartp));
+update(cart,cartp);
+cartitem(cart,cartp);
+}
+////---------
+var t,t1;
+for(t in cart)
+{
+    if(cart[t] == 0)
+    {
+        delete cart[t];
+    }
+}
+for(t1 in cartp)
+{
+    if(cartp[t1] == 0)
+    {
+        delete cartp[t1];
+    }
+}
+///////////---------
+localStorage.setItem('cart',JSON.stringify(cart));
+localStorage.setItem('cartp',JSON.stringify(cartp));
+
+function fun(v){
+var a = v.id.split('_');
+var a1 = a[0];
+var b1 = a[1];
+console.log(`item --- ${a1} and ${b1}`);
+    if(cart[a1] != undefined)
+    {
+        cart[a1] = cart[a1]+1;
+        cartp[b1]= cartp[b1]+1;
+    }
+    else
+    {
+        cart[a1]=1;
+        cartp[b1]=1;
+    }
+    console.log(cart);
+    console.log(cartp);
+    localStorage.setItem('cart',JSON.stringify(cart));
+    localStorage.setItem('cartp',JSON.stringify(cartp));
+    update(cart,cartp);
+    cartitem(cart,cartp);
+    // document.getElementById('ct').innerHTML = Object.keys(cart).length;
+    console.log(Object.keys(cart).length);
+}
+update(cart,cartp);
+cartitem(cart,cartp);
+
+function cartitem(cart,cartp)
+{
+    var x,i=1,j=1;
+    var txt="",pxp="";
+    document.getElementById('show_item').innerText = "";
+    if(document.getElementById('ct').innerHTML == '0')
+    {
+        document.getElementById('show_item').innerText = "";
+        document.getElementById('show_item').innerText = "Your cart is empty.";
+        document.getElementById('show_prices').innerText = "";
+
+    }
+    document.getElementById('show_prices').innerText = "";
+    for(x in cart)
+    {
+
+        txt = "\n"+i+". "+x+" - Qty - "+cart[x]+"\n";
+
+        document.getElementById('show_item').innerText += txt;
+        i+=1;
+    }
+    for(x in cartp)
+    {
+
+        pxp = "\n"+j+". "+x+" - Qty - "+cartp[x]+" - "+(x*cartp[x])+"\n";
+
+        document.getElementById('show_prices').innerText += pxp;
+        j+=1;
+    }
+
+}
+
+function update(cart,cartp)
+{
+    var x,sum=0;
+    for(x in cart)
+    {
+        sum=sum+cart[x];
+    }
+document.getElementById('ct').innerHTML = sum;
+
+    var total = 0;
+    for(x in cartp)
+    {
+        a = x * cartp[x];
+        total = total+a;
+    }
+document.getElementById('ta').innerText = total;
+}
+{% endblock script %}
